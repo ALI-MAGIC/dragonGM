@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>dragonGM</title>
+</head>
+<body>
+  <div id="gamingContainer">
+    <button onclick="closeGame()"><i class="fa fa-close"></i></button>
+    <h3>Game Name...</h3>
+    <p></p>
+    <object data="games/game1.html" type="text/html"></object>
+  </div>
+
+  <!-- header -->
+  <header id="top">
+    <i class="fa fa-bars menu-burger-icon" onclick="showMenu()" id="burgerIcon"></i>
+    <div class="logo">dragonGM</div>
+    <ul class="menu">
+      <li><a href="#top">Home</a></li>
+      <li><a href="#offers">Our Offers</a></li>
+      <li><a href="#hot">Hot Games</a></li>
+      <li><a href="#about">About Site</a></li>
+    </ul>
+    <div class="search-container">
+      <input type="text" class="search" list="datalist" placeholder="Search...">
+      <datalist id="datalist">
+        <option value="survial games"></option>
+        <option value="arcade games"></option>
+        <option value="shooting games"></option>
+        <option value="snake"></option>
+        <option value="card"></option>
+        <option value="hunter"></option>
+        <option value="world"></option>
+        <option value="rescue"></option>
+        <option value="ball"></option>
+        <option value="break out"></option>
+        <option value="tetris"></option>
+        <option value="ping pong"></option>
+        <option value="flappy"></option>
+      </datalist>
+      <button class="search-btn" onclick="searchRes()"><i class="fa fa-search"></i></button>
+    </div>
+  </header>
+
+  <!-- slider -->
+  <section class="slider">
+    <div class="list">
+      <div class="item active">
+        <img src="img/cards-banner.jpg">
+        <div class="content">
+          <p>game</p>
+          <h2>Cards</h2>
+          <p>
+            It's a memory game , we have some cards with some numbers on them and you should find same numbers
+          </p>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/world-banner.jpg">
+        <div class="content">
+          <p>game</p>
+          <h2>World</h2>
+          <p>
+            You've got a mission , the mission is to save the world , it's a really crucial mission , you have to pass it
+          </p>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/snake-banner.jpg">
+        <div class="content">
+          <p>game</p>
+          <h2>Snake</h2>
+          <p>
+            An old but fantastic game , we all have good memories with snake game then let's refeel the true joy
+          </p>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/hunter-banner.jpg">
+        <div class="content">
+          <p>game</p>
+          <h2>Hunter</h2>
+          <p>
+            Let's shoot the birds , we sometimes want to have a gun in our hands and freely shoot the birds but in the other hand we don't like to ruin the beautiful nature then let's put the guns away and just play the games
+          </p>
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/space-banner.jpg">
+        <div class="content">
+          <p>game</p>
+          <h2>Space</h2>
+          <p>
+            Let's travel to the hypothetical wars and save the unknown space 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- button arrows -->
+    <div class="arrows">
+      <button id="prev"><</button>
+      <button id="next">></button>
+    </div>
+    <!-- thumbnail -->
+    <div class="thumbnail">
+      <div class="item active">
+        <img src="img/card-icon.jpg">
+        <div class="content">Cards</div>
+      </div>
+      <div class="item">
+        <img src="img/world-icon.jpg">
+        <div class="content">Save The World</div>
+      </div>
+      <div class="item">
+        <img src="img/nSnake-icon.jpg">
+        <div class="content">Neon Snake</div>
+      </div>
+      <div class="item">
+        <img src="img/hunter-icon.jpg">
+        <div class="content">Hunter</div>
+      </div>
+      <div class="item">
+        <img src="img/space-icon.jpg">
+        <div class="content">Uknown Planet</div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- Offer -->
+    <section class="offer" id="offers">
+      <div class="title">
+        <strong>Our Offers</strong>
+        <span>our other websites to give you service</span>
+      </div>
+      <div class="offerBanners">
+        <div class="banner" onclick="window.open('https://ali-magic.github.io/4a/index.html')"></div>
+        <div class="banner" onclick="window.open('https://ali-magic.github.io/travelo/index.html')"></div>
+        <div class="banner" onclick="window.open('https://ali-magic.github.io/newsbit/index.html')"></div>
+        <div class="banner" onclick="window.open('https://ali-magic.github.io/hitler/index.html')"></div>
+        <div class="banner" onclick="window.open('https://ali-magic.github.io/ali-chat/index.html')"></div>
+      </div>
+    </section>
+
+    <!-- Game list -->
+    <section class="gameList" id="hot">
+      <div class="gameListTitle">
+        <strong>Hot Games</strong>
+      </div>
+      <!-- Game Row 1 -->
+      <div class="gameRow">
+          <div class="game" onclick="flappyG()">
+            <img src="img/flappy-icon.jpg" alt="">
+            <div class="dis">
+              <span>flappy squar</span>
+              <span>survial</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="hunterG()">
+            <img src="img/hunter-icon.jpg" alt="">
+            <div class="dis">
+              <span>bird hunter</span>
+              <span>shooting</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="ballG()">
+            <img src="img/ball-icon.jpg" alt="">
+            <div class="dis">
+              <span>ball explore cave</span>
+              <span>platform</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="breakG()">
+            <img src="img/breakOut-icon.jpg" alt="">
+            <div class="dis">
+              <span>break out</span>
+              <span>arcade</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="spaceG()">
+            <img src="img/space-icon.jpg" alt="">
+            <div class="dis">
+              <span>space rescue</span>
+              <span>survial,shooting</span>
+            </div>
+          </div>
+      </div>
+
+      <!-- Game Row 2 -->
+      <div class="gameRow">
+          <div class="game" onclick="cardG()">
+            <img src="img/card-icon.jpg" alt="">
+            <div class="dis">
+              <span>same cards</span>
+              <span>memory</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="worldG()">
+            <img src="img/world-icon.jpg" alt="">
+            <div class="dis">
+              <span>survive the world</span>
+              <span>survial</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="tetrisG()">
+            <img src="img/tetris-icon.jpg" alt="">
+            <div class="dis">
+              <span>tetris</span>
+              <span>arcade</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="tennisG()">
+            <img src="img/tennis-icon.jpg" alt="">
+            <div class="dis">
+              <span>ping pong</span>
+              <span>arcade</span>
+            </div>
+          </div>
+
+          <div class="game" onclick="nSnakeG()">
+            <img src="img/nSnake-icon.jpg" alt="">
+            <div class="dis">
+              <span>neon snake</span>
+              <span>arcade</span>
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- Games Discription -->
+    <section class="disSection" id="about">
+      <div class="disContainer">
+        <div class="dicriptions">
+          <div class="disTitle">
+            <img src="img/logo.png" alt="Logo">
+            <h2>dragonGM</h2>
+          </div>
+          <p>
+            At this website you can play games without installing them . And you can have fun with some simple games
+          </p>
+          <button onclick="request()">Send Us A Request</button>
+          <div class="lists">
+            <ul>
+              <li>Strengths</li>
+              <li>quick</li>
+              <li>no installing</li>
+              <li>fun</li>
+            </ul>
+            <ul>
+              <li>Contact Us</li>
+              <li onclick="alert('+98 902 536 0424')" class="cursor-pointer">Ali</li>
+              <li onclick="alert('+98 939 559 0365 \n+98 902 736 1266')" class="cursor-pointer">Arvin</li>
+              <li onclick="alert('+98 936 042 9578')" class="cursor-pointer">Parsa</li>
+            </ul>
+            <ul>
+              <li>Info</li>
+              <li onclick="alert('Fronted : Ali Ahmadi Yekta , Arvin Mozafari \nBackend : Parsa ShirinAliZade \nLogo/Icons : Erfan Ahmadi Yekta')" class="cursor-pointer">team</li>
+              <li onclick="alert('Iran')" class="cursor-pointer">country</li>
+              <li onclick="alert('general birth : 2006-2007')" class="cursor-pointer">age</li>
+            </ul>
+          </div>
+        </div>
+        <div class="disImages">
+          <img src="img/tetris-icon.jpg" alt="">
+          <img src="img/tennis-icon.jpg" alt="">
+          <img src="img/breakOut-icon.jpg" alt="">
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="leftSide">
+        <img src="img/logo.png" alt="Logo">
+        <div class="medias">
+          <i class="fa fa-instagram"></i>
+          <i class="fa fa-github" onclick="window.open('https://github.com/ALI-MAGIC')"></i>
+          <i class="fa fa-telegram" onclick="window.open('https://t.me/@RVN_MZ')"></i>
+        </div>
+      </div>
+      <div class="rightSide">
+        <ul>
+          <h2>popular games</h2>
+          <li>same cards</li>
+          <li>break out</li>
+          <li>snake game</li>
+          <li>ping pong</li>
+          <li>tetris</li>
+        </ul>
+        <ul>
+          <h2>our websites</h2>
+          <li>4a(team)</li>
+          <li>news-bit(Ali)</li>
+          <li>weather(Arvin)</li>
+          <li>techno-learn(parsa)</li>
+          <li>dragonGM(team)</li>
+        </ul>
+      </div>
+    </footer>
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>memory card game</title>
+    <style>
+        ::selection{
+            background-color: transparent;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1c975b;
+            box-sizing: border-box;
+        }
+
+        .active {
+            background-color: #fff !important;
+            background-image: none !important;
+            text-align: center !important;
+            color: #000 !important;
+            transform: rotateY(360deg) !important;
+        }
+
+        .matched {
+            opacity: 0 !important;
+            visibility: hidden;
+        }
+
+        .easy {
+            margin: 200px auto;
+        }
+
+        .medium {
+            margin: 150px auto;
+        }
+
+        .hard {
+            margin: 110px auto;
+        }
+
+        .extreme {
+            margin: 100px auto;
+        }
+
+        #card {
+            width: 80px;
+            height: 120px;
+            color: #c12d2d;
+            margin: 10px;
+            float: left;
+            font-size: 40px;
+            text-align: center;
+            line-height: 120px;
+            border-radius: 3px;
+            border: 2px solid #3a2e32;
+            text-align: left;
+            box-shadow: 0 5px 10px #000;
+            perspective: 1500px;
+            -moz-perspective: 1500px;
+            transform: rotateY(180deg);
+            cursor: pointer;
+            background-color: #c12d2d;
+        }
+        
+        #card:hover{
+            color: #a32626;
+            background-color: #a32626;
+        }
+
+        #game-board {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 100px auto;
+        }
+
+        .menuBar{
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+
+        #settings-box {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            width: 100%;
+            line-height: 50px;
+            background-color: #001d02;
+        }
+        #settings-box > *{
+            margin-right: 10px;
+        }
+
+        button {
+            &:hover {
+                background-color: #1c975b;
+                cursor: pointer;
+            }
+
+            &-active {
+                background-color: #1d744a;
+            }
+        }
+
+        .btn {
+            width: 9.3vw;
+            height: 5vw;
+            border: none;
+            border-radius: 3px;
+            font-size: 2.5vw;
+            background-color: #fff;
+        }
+
+        #info-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            font-family: "Bebas Neue", cursive;
+            font-size: 2.5vw;
+            width: 100%;
+            color: #fff;
+            text-align: center;
+            background-color: #3a1111;
+        }
+
+        button:hover {
+            background-color: #d7d7d7;
+            cursor: pointer;
+        }
+
+        @media (min-width: 1000px){
+            .menuBar{
+                height: 86px!important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game-board" class="easy"></div>
+
+    <section class="menuBar">
+        <div id="info-box"></div>
+        <div id="settings-box">
+            <button id="easy" class="btn">Easy</button>
+            <button id="medium" class="btn">Medium</button>
+            <button id="hard" class="btn">Hard</button>
+            <button id="extreme" class="btn">Extreme</button>
+        </div>
+    </section>
+    
+
+    
+
+    <script>
+        const gameBoard = document.getElementById('game-board');
+        let cardArr = [];
+        const cardArrEasy = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
+        const cardArrMed = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10];
+        const cardArrHard = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15];
+        const cardArrExtreme = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20];
+
+        let clickedArr = [];
+        let itemArr = [];
+        let itemClass = [];
+        let cardMatches = 0;
+        const infoBox = document.getElementById('info-box');
+        let attempts = 0;
+        let difficulty = "easy";
+        let extreme = false;
+        let matchesNeeded;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function updateInfoBox() {
+            infoBox.innerHTML = `<p>Attempts: ${attempts}</p>
+    <p>Card Matches: ${cardMatches}</p>`;
+        }
+        function setupGame() {
+            selectDifficulty();
+            gameBoard.innerHTML = "";
+            shuffleArray(cardArr);
+            setupCards();
+            updateInfoBox();
+            attempts = 0;
+            cardMatches = 0;
+            updateInfoBox();
+        }
+
+        function setupCards() {
+            cardArr.forEach((a, b) => {
+                return gameBoard.innerHTML +=
+                    `<div id='card' class='card${b}'>
+            ${a}
+        </div>`
+            });
+
+        }
+
+        function removeClasses() {
+            gameBoard.classList.remove('easy');
+            gameBoard.classList.remove('medium');
+            gameBoard.classList.remove('hard');
+            gameBoard.classList.remove('extreme');
+        }
+
+        function resetClicks() {
+            clickedArr = [];
+            itemArr = [];
+            itemClass = [];
+        }
+
+        function removeClass() {
+            itemArr.map(a => { a.classList.remove('active') });
+            resetClicks();
+        }
+
+        function selectDifficulty() {
+            if (difficulty == "easy") {
+                cardArr = cardArrEasy;
+                extreme = false;
+                removeClasses();
+                gameBoard.classList.add('easy');
+            } else if (difficulty == "medium") {
+                cardArr = cardArrMed;
+                extreme = false;
+                removeClasses();
+                gameBoard.classList.add('medium');
+            } else if (difficulty == "hard") {
+                cardArr = cardArrHard;
+                extreme = false;
+                removeClasses();
+                gameBoard.classList.add('hard');
+            } else if (difficulty == "extreme") {
+                cardArr = cardArrExtreme;
+                extreme = true;
+                removeClasses();
+                gameBoard.classList.add('extreme');
+            }
+            matchesNeeded = (cardArr.length / 2);
+        }
+
+        function checkClick() {
+            let classList = event.srcElement.className.split(/\s+/);
+
+            if (itemArr.length <= 1 && itemClass[0] !== classList[0]) {
+
+                itemClass.push(event.target.classList[0]);
+                itemArr.push(event.target);
+
+                if (clickedArr.length <= 2) {
+                    clickedArr.push(event.target.innerHTML);
+                    event.target.classList.add('active');
+                }
+            }
+
+            if (clickedArr.length === 2) {
+                if (clickedArr[0] === clickedArr[1]) {
+                    setTimeout(function () { itemArr.map(a => { a.classList.remove('active'); a.classList.add('matched'); }) }, 800);
+                    cardMatches++;
+                }
+                attempts++;
+                setTimeout(function () { removeClass() }, 800);
+
+            }
+
+            if (cardMatches >= matchesNeeded) {
+                setTimeout(function () { infoBox.innerHTML = `<p>You Win! Attempts: ${attempts}</p> <button id='reset' onClick='setupGame()' class="btn">Reset</button>`; }, 500);
+            }
+            if (extreme == true && attempts >= 70) {
+                setTimeout(function () {
+                    infoBox.innerHTML =
+                    `<p>You Lose! Attempts: ${attempts}</p> <button id='reset' onClick='setupGame()' class="btn">Reset</button>`;
+                    gameBoard.innerHTML = "";
+                }, 100);
+                gameBoard.innerHTML = "";
+            }
+        }
+
+
+        setupGame();
+
+
+        document.addEventListener('click', function (event) {
+            // If the clicked element doesn't have the right selector, bail
+            if (event.target.matches('#easy')) { difficulty = "easy"; setupGame() }
+            if (event.target.matches('#medium')) { difficulty = "medium"; setupGame() }
+            if (event.target.matches('#hard')) { difficulty = "hard"; setupGame() }
+            if (event.target.matches('#extreme')) { difficulty = "extreme"; setupGame() }
+
+            if (!event.target.matches('#card')) { return };
+
+
+            checkClick();
+            updateInfoBox();
+
+        }, false);
+    </script>
+</body>
+
+</html>

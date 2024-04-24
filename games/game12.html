@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guess game</title>
+    <style>
+        ::selection{
+            background-color: transparent;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            color: #313131;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1{
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(to right, #fff 10%, #5681eed6 50% , #fff 100%);
+        }
+        button{
+            cursor: pointer;
+        }
+        .discription{
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        .guessBox{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 65%;
+            height: 100px;
+            margin: auto 10px;
+        }
+        #enterGuess{
+            width: 100%;
+            padding: 15px 10px;
+            font-size: 17px;
+            outline: none;
+            border: 1px solid #111;
+            border-radius: 10px;
+        }
+        #enterGuess:focus{
+            outline: 1px solid #000;
+        }
+        #btnGuess{
+            width: 100%;
+            padding: 10px;
+        }
+        .output{
+            width: 65%;
+        }
+        #restart{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess</h1>
+    <p class="discription">we have randomly chosen a number , and your job is to guess it , the number's between 100-1</p>
+    
+    <div class="guessBox">
+        <input type="number" id="enterGuess">
+        <button id="btnGuess">submit</button>
+    </div>
+    
+    <div class="output">
+        <p class="prevGuess">last guesses : </p>
+        <p id="hint"></p>
+        <p id="result"></p>
+        <p id="answer"></p>
+        <button type="submit" id="restart">restart</button>
+    </div>
+
+    <script>
+        var rand = Math.random()*100;
+        var number = Math.round(rand)+1;
+        number > 100 ? number = 100 : number = Math.round(rand)+1;
+        var guess = parseInt(document.getElementById("enterGuess").value);
+        var result = document.getElementById("result");
+        var btnSubmit = document.getElementById("restart");
+        btnSubmit.addEventListener("click",function(){
+            alert("jkfchewkuf");
+        });
+    </script>
+</body>
+</html>
